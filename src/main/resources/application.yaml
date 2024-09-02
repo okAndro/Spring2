@@ -1,0 +1,43 @@
+#debug: true
+
+server:
+  port: 8085
+  error:
+    include-message: always
+
+spring:
+  application:
+    name: JM Spring Boot
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 2231
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop  # Используется для разработки, пересоздает схему при каждом запуске
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        hbm2ddl:
+          charset_name: UTF-8  # Оставляем это свойство, чтобы задать кодировку UTF-8
+          import_files: classpath:/init-data.sql  # Указан путь к init-data.sql в директории ресурсов
+    open-in-view: false  # Оставляем как есть, чтобы управлять сессиями вручную
+  devtools:
+    livereload:
+      enabled: true
+    add-properties: true
+  mvc:
+    view:
+      prefix: classpath:/templates/  # Указан путь в соответствии со структурой ресурсов
+      suffix: .html
+  web:
+    locale: ru_RU
+
+logging:
+  charset:
+    console: UTF-8
